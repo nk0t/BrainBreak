@@ -1,0 +1,6 @@
+﻿BrainBreak BNF
+
+program		::= instruction*
+instruction	::= loop | s
+loop		::= '[' instruction* ']'
+s			::= '+' | '-' | '<' | '>' | '.' | ',' | '|' | '&' | '~' | '^' | '*' | '/' | '(' | ')'
