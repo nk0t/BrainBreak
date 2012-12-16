@@ -8,19 +8,19 @@ namespace BrainBreak.Interpreter
 {
 	public class BrainBreakInterpreter
 	{
-		public BrainBreakInterpreter(string file, int memorySize = 30000)
+		public BrainBreakInterpreter(string file, int memorySize = 1024)
 		{
-			if (memorySize <= 0) memorySize = 30000;
+			if (memorySize <= 0) memorySize = 1024;
 			_memorySize = memorySize;
 			_memory = new int[memorySize];
 
 			try
 			{
-				Program = File.ReadAllText(file);
+				_program = File.ReadAllText(file);
 			}
 			catch (Exception e)
 			{
-				Program = "";
+				_program = "";
 				Console.WriteLine(e.Message);
 				return;
 			}
@@ -54,6 +54,8 @@ namespace BrainBreak.Interpreter
 			}
 		}
 
+		#region Instructions
+
 		public void IncrementValue()
 		{
 			_memory[_pointer]++;
@@ -62,10 +64,7 @@ namespace BrainBreak.Interpreter
 
 		public void DecrementValue()
 		{
-			if (_memory[_pointer] == 0)
-				_memory[_pointer] = 0;
-			else
-				_memory[_pointer]--;
+			_memory[_pointer]--;
 			IncrementInstructionPointer();
 		}
 
@@ -91,7 +90,7 @@ namespace BrainBreak.Interpreter
 
 		public void EndLoop()
 		{
-			if (_memory[_pointer] == 0)
+			if (_memory[_pointer] <= 0)
 			{
 				_nest.Pop();
 				IncrementInstructionPointer();
@@ -172,6 +171,8 @@ namespace BrainBreak.Interpreter
 		{
 			_instructionPointer++;
 		}
+
+		#endregion
 
 		private Dictionary<char, Action> _instructions;
 		private Stack<int> _nest;

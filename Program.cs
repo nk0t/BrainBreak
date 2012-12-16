@@ -11,7 +11,7 @@ namespace BrainBreak
 	{
 		static void Main(string[] args)
 		{
-			args = "-f hello.bb".Split(' ');
+			args = "-c -f hello.bb".Split(' ');
 			var options = new HashSet<string> { "-c", "-f", "-m", "-o" };
 			string key = "";
 			var res = args
@@ -19,17 +19,19 @@ namespace BrainBreak
 				.ToDictionary(g => g.Key, g => g.Skip(1).FirstOrDefault());
 
 			var memory = res.ContainsKey("-m") ? int.Parse(res["-m"]) : 0;
-			var file = res.ContainsKey("-f") ? res["-f"] : null;
+			var inputfile = res.ContainsKey("-f") ? res["-f"] : null;
+			var outputfile = res.ContainsKey("-o") ? res["-o"] : null;
 
-			if (file != null)
+			if (inputfile != null)
 			{
 				if (res.ContainsKey("-c"))
 				{
-					var compiler = new BrainBreakCompiler();
+					var compiler = new BrainBreakCompiler(inputfile, outputfile, memory);
+					compiler.Compile();
 				}
 				else
 				{
-					var interpreter = new BrainBreakInterpreter(file, memory);
+					var interpreter = new BrainBreakInterpreter(inputfile, memory);
 					interpreter.Run();
 				}
 			}
