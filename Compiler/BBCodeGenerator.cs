@@ -18,7 +18,7 @@ namespace BrainBreak.Compiler
 			_memorySize = memorySize;
 		}
 
-		public void Generate(string output)
+		public void Generate(string output, bool showCSCode = false)
 		{
 			CodeCompileUnit compileUnit = new CodeCompileUnit();
 			CodeNamespace name = new CodeNamespace("BrainBreak");
@@ -46,7 +46,8 @@ namespace BrainBreak.Compiler
 
 			CSharpCodeProvider provider = new CSharpCodeProvider();
 			CodeGeneratorOptions options = new CodeGeneratorOptions();
-			provider.GenerateCodeFromCompileUnit(compileUnit, Console.Out, options);
+			if (showCSCode)
+				provider.GenerateCodeFromCompileUnit(compileUnit, Console.Out, options);
 			CompilerParameters param = new CompilerParameters();
 
 			param.GenerateExecutable = true;

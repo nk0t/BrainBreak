@@ -11,8 +11,8 @@ namespace BrainBreak
 	{
 		static void Main(string[] args)
 		{
-			args = "-c -f hello.bb".Split(' ');
-			var options = new HashSet<string> { "-c", "-f", "-m", "-o" };
+			args = "-c -f hello.bb -s".Split(' ');
+			var options = new HashSet<string> { "-c", "-f", "-m", "-o", "-s" };
 			string key = "";
 			var res = args
 				.GroupBy(s => options.Contains(s) ? key = s : key)
@@ -27,7 +27,7 @@ namespace BrainBreak
 				if (res.ContainsKey("-c"))
 				{
 					var compiler = new BrainBreakCompiler(inputfile, outputfile, memory);
-					compiler.Compile();
+					compiler.Compile(res.ContainsKey("-s"));
 				}
 				else
 				{

@@ -35,10 +35,10 @@ namespace BrainBreak.Compiler
 			}
 		}
 
-		public void Compile()
+		public void Compile(bool showCSCode = false)
 		{
 			var generator = new BBCodeGenerator(_programName, _program, _memorySize);
-			generator.Generate(_output);
+			generator.Generate(_output, showCSCode);
 		}
 
 
