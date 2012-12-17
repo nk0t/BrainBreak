@@ -168,7 +168,9 @@ namespace BrainBreak.Compiler
 		public void Input()
 		{
 			var console_read = new CodeMethodInvokeExpression(_expr_type_console, "Read");
-			_nest.Peek().Add(console_read);
+			var stmt_read =
+				new CodeAssignStatement(_expr_memory_pointer, console_read);
+			_nest.Peek().Add(stmt_read);
 
 			IncrementInstructionPointer();
 		}
