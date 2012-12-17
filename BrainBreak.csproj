@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BrainBreak.txt" />
+    <None Include="Sample\helloworld1.bb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
